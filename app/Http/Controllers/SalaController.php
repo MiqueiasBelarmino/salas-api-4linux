@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SalaRequest;
 use Illuminate\Http\Request;
 use App\Models\Sala;
+use Exception;
 
 class SalaController extends Controller
 {
@@ -31,20 +33,17 @@ class SalaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SalaRequest $request)
     {
-
-        if (empty($request->nome)) {
-            return response()->json(['message'=>'O campo Nome deve ser preenchido!'], 200);
-        } else if (empty($request->capacidade)) {
-            return response()->json(['message'=>'O campo Capacidade deve ser preenchido!'], 200);
-        } else if (intval($request->capacidade) < 1) {
-            return response()->json(['message'=>'O campo Capacidade deve ser maior que zero!'], 200);
-        }else {
+        try{
             Sala::create($request->all());
             return response()->json([
                 "message" => "Sala registrada!"
             ], 201);
+        }catch(Exception $e){
+            return response()->json([
+                "message" => "Falha ao registrar Sala!"
+            ], 500);
         }
     }
 
@@ -72,7 +71,7 @@ class SalaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SalaRequest $request, $id)
     {
         if (Sala::where('id', $id)->exists()) {
             $sala = Sala::where('id', $id)->get();
