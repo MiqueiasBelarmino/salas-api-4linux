@@ -12,9 +12,17 @@ class SalaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Sala::paginate(15), 200);
+        if(isset($request->nome) && isset($request->disponivel)){
+            return response()->json(Sala::where('nome','LIKE','%'.$request->nome.'%')->whereDoesntHave('agendamentos')->paginate(15), 200);
+        }else if(isset($request->nome)){
+            return response()->json(Sala::where('nome','LIKE','%'.$request->nome.'%')->paginate(15), 200);
+        }else if(isset($request->disponivel)){
+            return response()->json(Sala::whereDoesntHave('agendamentos')->paginate(15), 200);
+        }else{
+            return response()->json(Sala::paginate(15), 200);
+        }
     }
 
     /**
