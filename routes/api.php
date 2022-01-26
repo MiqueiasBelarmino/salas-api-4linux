@@ -13,3 +13,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('salas','App\Http\Controllers\SalaController');
+Route::apiResource('agendamentos','App\Http\Controllers\AgendamentoController');

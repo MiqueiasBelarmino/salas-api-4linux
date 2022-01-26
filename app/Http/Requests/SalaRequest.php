@@ -23,12 +23,9 @@ class SalaRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this);
         return [
-            // 'nome' => 'required|max:80|min:5',
-            'nome' => 'required',
-            // 'capacidade' => 'required|numeric|min:1',
-            'capacidade' => 'required',
+            'nome' => 'required|max:80|min:5',
+            'capacidade' => 'required|numeric|min:1',
         ];
     }
 
