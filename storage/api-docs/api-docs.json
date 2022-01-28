@@ -1,0 +1,275 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi Demo Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "miqueiascostabac@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "localhost/salas-api-4linux/public/api/",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/agendamentos/{sala_id}": {
+            "post": {
+                "tags": [
+                    "Agendamentos"
+                ],
+                "summary": "Reserva uma sala",
+                "description": "Retorna um status referente a reserva",
+                "operationId": "9c492a2abad30d28a243862719af99d4",
+                "parameters": [
+                    {
+                        "parameter": "sala_id",
+                        "name": "sala_id",
+                        "in": "header",
+                        "description": "O id da sala a ser reservada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "parameter": "data_inicio",
+                        "name": "data_inicio",
+                        "in": "header",
+                        "description": "A data inicial da reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "parameter": "data_termino",
+                        "name": "data_termino",
+                        "in": "header",
+                        "description": "A data de término da reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sala não disponível"
+                    },
+                    "201": {
+                        "description": "Sala reservada"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/salas": {
+            "get": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Busca a lista de salas",
+                "description": "Retorna a lista de salas",
+                "operationId": "e459cb26717fc8800bf7418ff3918c56",
+                "parameters": [
+                    {
+                        "parameter": "nome",
+                        "name": "nome",
+                        "in": "header",
+                        "description": "O noma da sala para ser filtrado",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "parameter": "disponivel",
+                        "name": "disponivel",
+                        "in": "header",
+                        "description": "Flag para filtrar apenas salas disponíveis",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Cria uma nova sala",
+                "description": "Retorna a sala criada",
+                "operationId": "681d119eb0a67339f08cb03fbf70e043",
+                "parameters": [
+                    {
+                        "parameter": "nome",
+                        "name": "nome da sala",
+                        "in": "header",
+                        "description": "Nome da sala a ser criada",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "parameter": "capacidade",
+                        "name": "capacidade da sala",
+                        "in": "header",
+                        "description": "Capacidade da sala a ser criada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Sala registrada"
+                    },
+                    "500": {
+                        "description": "Falha ao registrar Sala"
+                    }
+                }
+            }
+        },
+        "/salas/{id}": {
+            "get": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Busca uma sala",
+                "description": "Retorna uma sala por id",
+                "operationId": "924643782db2c69312aad68d379eb03c",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id da sala",
+                        "in": "header",
+                        "description": "id da sala a ser mostrada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Atualiza uma sala",
+                "description": "Retorna a sala atualizada",
+                "operationId": "fc3959c5340ffd97e67c7cf772105f00",
+                "parameters": [
+                    {
+                        "parameter": "nome",
+                        "name": "nome da sala",
+                        "in": "header",
+                        "description": "Nome da sala a ser criada",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "parameter": "capacidade",
+                        "name": "capacidade da sala",
+                        "in": "header",
+                        "description": "Capacidade da sala a ser criada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "parameter": "id",
+                        "name": "id da sala",
+                        "in": "header",
+                        "description": "id da sala a ser atualizada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salas"
+                ],
+                "summary": "Deleta uma sala",
+                "description": "Retorna a sala deletada",
+                "operationId": "703988cd360a4b1be901121cfc3f6803",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id da sala",
+                        "in": "header",
+                        "description": "id da sala a ser deletada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

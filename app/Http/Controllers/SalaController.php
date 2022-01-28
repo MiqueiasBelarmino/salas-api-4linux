@@ -15,6 +15,50 @@ class SalaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Get(
+     *      path="/salas",
+     *      tags={"Salas"},
+     *      summary="Busca a lista de salas",
+     *      description="Retorna a lista de salas",
+     *      @OA\Parameter(
+     *          parameter="nome",
+     *          name="nome",
+     *          description="O noma da sala para ser filtrado",
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *          in="header",
+     *          required=false
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="disponivel",
+     *          name="disponivel",
+     *          description="Flag para filtrar apenas salas disponíveis",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=false
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found"
+     *      )
+     *     )
+     */
     public function index(Request $request)
     {
         if(isset($request->nome) && isset($request->disponivel)){
@@ -43,6 +87,42 @@ class SalaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Post(
+     *      path="/salas",
+     *      tags={"Salas"},
+     *      summary="Cria uma nova sala",
+     *      description="Retorna a sala criada",
+     *      @OA\Parameter(
+     *          parameter="nome",
+     *          name="nome da sala",
+     *          description="Nome da sala a ser criada",
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="capacidade",
+     *          name="capacidade da sala",
+     *          description="Capacidade da sala a ser criada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Sala registrada",
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Falha ao registrar Sala",
+     *      )
+     *     )
+     */
     public function store(SalaRequest $request)
     {
         try{
@@ -65,6 +145,33 @@ class SalaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Get(
+     *      path="/salas/{id}",
+     *      tags={"Salas"},
+     *      summary="Busca uma sala",
+     *      description="Retorna uma sala por id",
+     *      @OA\Parameter(
+     *          parameter="id",
+     *          name="id da sala",
+     *          description="id da sala a ser mostrada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not Found"
+     *      )
+     *     )
+     */
     public function show($id)
     {
         if (Sala::where('id', $id)->exists()) {
@@ -83,6 +190,52 @@ class SalaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Put(
+     *      path="/salas/{id}",
+     *      tags={"Salas"},
+     *      summary="Atualiza uma sala",
+     *      description="Retorna a sala atualizada",
+     *      @OA\Parameter(
+     *          parameter="nome",
+     *          name="nome da sala",
+     *          description="Nome da sala a ser criada",
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="capacidade",
+     *          name="capacidade da sala",
+     *          description="Capacidade da sala a ser criada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="id",
+     *          name="id da sala",
+     *          description="id da sala a ser atualizada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not Found"
+     *      )
+     *     )
      */
     public function update(SalaRequest $request, $id)
     {
@@ -103,6 +256,32 @@ class SalaController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Delete(
+     *      path="/salas/{id}",
+     *      tags={"Salas"},
+     *      summary="Deleta uma sala",
+     *      description="Retorna a sala deletada",
+     *      @OA\Parameter(
+     *          parameter="id",
+     *          name="id da sala",
+     *          description="id da sala a ser deletada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not Found"
+     *      )
+     *     )
      */
     public function destroy($id)
     {

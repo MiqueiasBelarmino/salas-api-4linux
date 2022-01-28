@@ -14,16 +14,66 @@ class AgendamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Post(
+     *      path="/agendamentos/{sala_id}",
+     *      tags={"Agendamentos"},
+     *      summary="Reserva uma sala",
+     *      description="Retorna um status referente a reserva",
+     *      @OA\Parameter(
+     *          parameter="sala_id",
+     *          name="sala_id",
+     *          description="O id da sala a ser reservada",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="data_inicio",
+     *          name="data_inicio",
+     *          description="A data inicial da reserva",
+     *          @OA\Schema(
+     *              type="date"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Parameter(
+     *          parameter="data_termino",
+     *          name="data_termino",
+     *          description="A data de término da reserva",
+     *          @OA\Schema(
+     *              type="date"
+     *          ),
+     *          in="header",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Sala não disponível",
+     *       ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Sala reservada",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found",
+     *      )
+     *     )
      */
     public function store(AgendamentoRequest $request)
     {
@@ -32,12 +82,12 @@ class AgendamentoController extends Controller
                 "message" => "Sala não encontrada",
                 "status" => false
             ], 404);
-        }else if (Agendamento::where('sala_id', $request->sala_id)->count() > 0) {
+        } else if (Agendamento::where('sala_id', $request->sala_id)->count() > 0) {
             return response()->json([
                 "message" => "Sala não disponível",
                 "status" => false
             ], 200);
-        }else {
+        } else {
             Agendamento::create($request->all());
             return response()->json([
                 "message" => "Sala reservada",
@@ -52,10 +102,10 @@ class AgendamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -63,10 +113,10 @@ class AgendamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -75,10 +125,10 @@ class AgendamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -86,8 +136,8 @@ class AgendamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }
