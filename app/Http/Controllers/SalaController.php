@@ -9,6 +9,7 @@ use Exception;
 
 class SalaController extends Controller
 {
+    private $totalPorPagina = 10;
     /**
      * Display a listing of the resource.
      *
@@ -17,14 +18,23 @@ class SalaController extends Controller
     public function index(Request $request)
     {
         if(isset($request->nome) && isset($request->disponivel)){
-            return response()->json(Sala::where('nome','LIKE','%'.$request->nome.'%')->whereDoesntHave('agendamentos')->paginate(15), 200);
+            $salas = Sala::where('nome','LIKE','%'.$request->nome.'%')->whereDoesntHave('agendamentos')->paginate($this->totalPorPagina);
         }else if(isset($request->nome)){
-            return response()->json(Sala::where('nome','LIKE','%'.$request->nome.'%')->paginate(15), 200);
+            $salas = Sala::where('nome','LIKE','%'.$request->nome.'%')
+            ->leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
+            ->select('salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
+            ->paginate($this->totalPorPagina);
         }else if(isset($request->disponivel)){
-            return response()->json(Sala::whereDoesntHave('agendamentos')->paginate(15), 200);
+            $salas = Sala::whereDoesntHave('agendamentos')
+            ->paginate($this->totalPorPagina);
         }else{
-            return response()->json(Sala::paginate(15), 200);
+            $salas = Sala::leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
+            ->select('salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
+            ->paginate($this->totalPorPagina);
         }
+
+        return response()->json($salas, 200);
+
     }
 
     /**
@@ -38,11 +48,13 @@ class SalaController extends Controller
         try{
             Sala::create($request->all());
             return response()->json([
-                "message" => "Sala registrada!"
+                "message" => "Sala registrada!",
+                "status" => true
             ], 201);
         }catch(Exception $e){
             return response()->json([
-                "message" => "Falha ao registrar Sala!"
+                "message" => "Falha ao registrar Sala!",
+                "status" => false
             ], 500);
         }
     }
@@ -59,7 +71,8 @@ class SalaController extends Controller
             return response()->json(Sala::where('id', $id)->get(), 200);
         } else {
             return response()->json([
-                "message" => "Sala não encontrada!"
+                "message" => "Sala não encontrada!",
+                "status" => false
             ], 404);
         }
     }
@@ -79,7 +92,8 @@ class SalaController extends Controller
             return response()->json($sala, 200);
         } else {
             return response()->json([
-                "message" => "Sala não encontrada!"
+                "message" => "Sala não encontrada!",
+                "status" => false
             ], 404);
         }
     }
@@ -98,7 +112,8 @@ class SalaController extends Controller
             return response()->json($sala, 200);
         } else {
             return response()->json([
-                "message" => "Sala não encontrada!"
+                "message" => "Sala não encontrada!",
+                "status" => false
             ], 404);
         }
     }
