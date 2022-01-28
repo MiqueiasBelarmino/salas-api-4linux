@@ -36,7 +36,7 @@ class SalaRequest extends FormRequest
             'nome.min' => 'Quantidade mínima de caracteres do nome não atingida',
             'nome.max' => 'Quantidade máxima de caracteres do nome excedida',
             'capacidade.required' => 'O campo capacidade é obrigatório',
-            'capacidade.numeric' => 'O campo stcapacidadeatus deve ser numérico',
+            'capacidade.numeric' => 'O campo capacidade deve ser numérico',
             'capacidade.min' => 'Quantidade mínima de caracteres do campo capacidade não atingida',
         ];
     }

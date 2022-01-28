@@ -9,7 +9,7 @@ use Exception;
 
 class SalaController extends Controller
 {
-    private $totalPorPagina = 10;
+    private $totalPorPagina = 15;
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +46,10 @@ class SalaController extends Controller
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *       ),
+     *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
@@ -56,6 +60,10 @@ class SalaController extends Controller
      *      @OA\Response(
      *          response=404,
      *          description="Not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content"
      *      )
      *     )
      */
@@ -65,16 +73,17 @@ class SalaController extends Controller
             $salas = Sala::where('nome','LIKE','%'.$request->nome.'%')->whereDoesntHave('agendamentos')->paginate($this->totalPorPagina);
         }else if(isset($request->nome)){
             $salas = Sala::where('nome','LIKE','%'.$request->nome.'%')
-            ->leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
-            ->select('salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
+            // ->leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
+            // ->select('salas.id','salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
             ->paginate($this->totalPorPagina);
         }else if(isset($request->disponivel)){
             $salas = Sala::whereDoesntHave('agendamentos')
             ->paginate($this->totalPorPagina);
         }else{
-            $salas = Sala::leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
-            ->select('salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
-            ->paginate($this->totalPorPagina);
+            $salas = Sala::
+            // leftJoin('agendamentos', 'agendamentos.sala_id','=','salas.id')
+            // ->select('salas.id','salas.nome','salas.capacidade','agendamentos.data_inicio as dataInicio','agendamentos.data_termino as dataTermino')
+            paginate($this->totalPorPagina);
         }
 
         return response()->json($salas, 200);
@@ -114,12 +123,28 @@ class SalaController extends Controller
      *          required=true
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Sala registrada",
+     *          response=200,
+     *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=500,
-     *          description="Falha ao registrar Sala",
+     *          response=201,
+     *          description="Created",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content"
      *      )
      *     )
      */
@@ -167,8 +192,20 @@ class SalaController extends Controller
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
      *          response=404,
-     *          description="Not Found"
+     *          description="Not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content"
      *      )
      *     )
      */
@@ -232,8 +269,20 @@ class SalaController extends Controller
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
      *          response=404,
-     *          description="Not Found"
+     *          description="Not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content"
      *      )
      *     )
      */
@@ -278,8 +327,20 @@ class SalaController extends Controller
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
      *          response=404,
-     *          description="Not Found"
+     *          description="Not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content"
      *      )
      *     )
      */

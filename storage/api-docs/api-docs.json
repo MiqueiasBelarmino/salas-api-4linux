@@ -14,11 +14,38 @@
     },
     "servers": [
         {
-            "url": "localhost/salas-api-4linux/public/api/",
+            "url": "localhost/salas-api-4linux/public/api",
             "description": "Demo API Server"
         }
     ],
     "paths": {
+        "/agendamentos": {
+            "post": {
+                "tags": [
+                    "Agendamentos"
+                ],
+                "summary": "Busca os agendamentos",
+                "description": "Retorna todos os agendamentos",
+                "operationId": "8b2542ce4880e58aeb5b38137178ae23",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
         "/agendamentos/{sala_id}": {
             "post": {
                 "tags": [
@@ -61,13 +88,22 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sala não disponível"
+                        "description": "Successful operation"
                     },
                     "201": {
-                        "description": "Sala reservada"
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     },
                     "404": {
                         "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             }
@@ -106,6 +142,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "201": {
+                        "description": "Created"
+                    },
                     "401": {
                         "description": "Unauthenticated"
                     },
@@ -114,6 +153,9 @@
                     },
                     "404": {
                         "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             },
@@ -147,11 +189,23 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Sala registrada"
+                    "200": {
+                        "description": "Successful operation"
                     },
-                    "500": {
-                        "description": "Falha ao registrar Sala"
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             }
@@ -180,8 +234,17 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             },
@@ -228,8 +291,17 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             },
@@ -256,8 +328,17 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             }
